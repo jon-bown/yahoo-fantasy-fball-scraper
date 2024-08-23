@@ -65,6 +65,8 @@ def main():
         table_data = tables[0].get_attribute('innerText')
         table_rows = table_data.splitlines()
         del table_rows[:35]  # Remove header rows
+        del table_rows[0]  # Remove first row
+        del table_rows[0]  # Remove second row
 
         # Initialize variables
         i = 0
@@ -74,7 +76,7 @@ def main():
 
         # Parse records and write to output file
         for table_row in table_rows:
-            if i == 0:  # Capture player name, team, and position from record
+            if i == 0:  # Capture player name from record
                 player_details.append(table_row)
                 i += 1
                 continue
