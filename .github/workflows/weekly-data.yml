@@ -26,8 +26,8 @@ jobs:
 
       - name: Run Yahoo Fantasy script
         env:
-          YAHOO_EMAIL: ${{ env.YAHOO_EMAIL }}
-          YAHOO_PW: ${{ env.YAHOO_PW }}
+          YAHOO_EMAIL: ${{ env.secrets.YAHOO_EMAIL }}
+          YAHOO_PW: ${{ env.secrets.YAHOO_PW }}
           YAHOO_LEAGUE_ID: ${{ secrets.YAHOO_LEAGUE_ID }}
         run: |
           python player_week_projections.py \
