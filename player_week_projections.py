@@ -48,11 +48,11 @@ def main():
     # Calculate the next NFL week
     next_nfl_week = helper.get_next_nfl_week(current_nfl_week)
 
-    csv_extract = 'results/' + datetime.now().strftime('%Y_%m_%d_') + f'yahoo_player_week_{next_nfl_week}_projections.csv'
+    csv_extract = 'data/' + datetime.now().strftime('%Y_%m_%d_') + f'yahoo_player_week_{next_nfl_week}_projections.csv'
     # Create output file headers
     with open(csv_extract, 'a', encoding='utf-8') as output_file:
         output_file.write(
-            'PLAYER_NAME,TEAM,POSITION,PLAYER_STATUS,GP*,BYE,FANTASY_POINTS,PRESEASON_RANKING,ACTUAL_RANKING,PASSING_YDS,'
+            'PLAYER_NAME,TEAM,POSITION,PLAYER_STATUS,GP*,BYE,FANTASY_POINTS,PRESEASON_RANKING,ACTUAL_RANKING,PCT_ROSTERED,PASSING_YDS,'
             'PASSING_TD,PASSING_INT,RUSHING_ATT,RUSHING_YDS,RUSHING_TD,RECEPTIONS,RECEIVING_YDS,RECEIVING_TD,TARGETS,RET_TD,'
             '2PT_CONVERSIONS,FUMBLES_LOST')
 
