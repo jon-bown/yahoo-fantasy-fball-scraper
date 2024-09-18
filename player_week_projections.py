@@ -41,8 +41,17 @@ def main():
     start, args = init_config()
     print('Program started\n**************START**************\n')
 
+    #GET NFL WEEK
+    # NFL season start date (example: start of the 2024 season)
+    season_start_date = datetime(2024, 9, 5)  # Adjust the date accordingly
+    current_date = datetime.now()
+    # Get the current NFL week
+    current_nfl_week = helper.get_current_nfl_week(season_start_date, current_date)
+    # Calculate the next NFL week
+    next_nfl_week = helper.get_next_nfl_week(current_nfl_week)
+
+    csv_extract = 'results/' + datetime.now().strftime('%Y_%m_%d_') + f'yahoo_player_week_{next_nfl_week}_projections.csv'
     # Create output file headers
-    csv_extract = datetime.now().strftime('%Y_%m_%d_') + 'yahoo_player_season_projections.csv'
     with open(csv_extract, 'a', encoding='utf-8') as output_file:
         output_file.write(
             'PLAYER_NAME,TEAM,POSITION,PLAYER_STATUS,GP*,BYE,FANTASY_POINTS,PRESEASON_RANKING,ACTUAL_RANKING,PASSING_YDS,'
@@ -52,19 +61,6 @@ def main():
     # Remotely control safari web browser
     browser = webdriver.Safari()
     browser = helper.yahoo_account_login(args.yahoo_email, args.yahoo_pw, browser)
-
-
-
-    #GET NFL WEEK
-    # NFL season start date (example: start of the 2024 season)
-    season_start_date = datetime(2024, 9, 5)  # Adjust the date accordingly
-    current_date = datetime.now()
-
-    # Get the current NFL week
-    current_nfl_week = helper.get_current_nfl_week(season_start_date, current_date)
-
-    # Calculate the next NFL week
-    next_nfl_week = helper.get_next_nfl_week(current_nfl_week)
 
     # Cycle through player data and extract season-long projections
     print('Extracting Yahoo! fantasy football player season projections...')
