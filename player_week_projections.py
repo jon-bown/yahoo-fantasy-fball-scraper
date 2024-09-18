@@ -7,6 +7,8 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 import helper
 
@@ -59,6 +61,7 @@ def main():
     # Remotely control safari web browser
     browser = webdriver.Safari()
     browser = helper.yahoo_account_login(args.yahoo_email, args.yahoo_pw, browser)
+    wait = WebDriverWait(browser, 15)  # Wait for up to 15 seconds
 
     # Cycle through player data and extract season-long projections
     print('Extracting Yahoo! fantasy football player season projections...')
@@ -68,7 +71,8 @@ def main():
         browser.get(f'https://football.fantasysports.yahoo.com/f1/{args.yahoo_league_id}/players?&sort=PTS&sdir=1&status=A'
                     f'&pos=O&stat1=S_PW_{next_nfl_week}&count={str(pagination)}')
         # Extract data from first web page table
-        tables = browser.find_elements(By.CLASS_NAME, 'Table')
+        tables = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'Table')))
+        #tables = browser.find_elements(By.CLASS_NAME, 'Table')
         table_data = tables[0].get_attribute('innerText')
         table_rows = table_data.splitlines()
         del table_rows[:35]  # Remove header rows
