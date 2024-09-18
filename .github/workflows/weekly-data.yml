@@ -11,30 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Adjust to the Python version you need
+          python-version: '3.11'
 
-      # Install dependencies (if required)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Run the Python script
       - name: Run Yahoo Fantasy script
+        env:
+          YAHOO_EMAIL: ${{ env.YAHOO_EMAIL }}
+          YAHOO_PW: ${{ env.YAHOO_PW }}
+          YAHOO_LEAGUE_ID: ${{ secrets.YAHOO_LEAGUE_ID }}
         run: |
           python player_week_projections.py \
-            --yahoo_email ${{ secrets.YAHOO_EMAIL }} \
-            --yahoo_pw ${{ secrets.YAHOO_PW }} \
-            --yahoo_league_id ${{ secrets.YAHOO_LEAGUE_ID }} \
-            --yahoo_league_year ${{ secrets.YAHOO_LEAGUE_YEAR }}
+            --yahoo_email $YAHOO_EMAIL \
+            --yahoo_pw $YAHOO_PW \
+            --yahoo_league_id $YAHOO_LEAGUE_ID
 
       - name: Upload CSV files
         uses: actions/upload-artifact@v3

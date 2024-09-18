@@ -24,8 +24,6 @@ def get_arg_list():
     parser.add_argument('--yahoo_pw', type=str, required=True, help='Password for Yahoo account login.')
     parser.add_argument('--yahoo_league_id', type=str, required=True, help='ID associated with Yahoo '
                                                                            'fantasy football league.')
-    parser.add_argument('--yahoo_league_year', type=str, required=True, help='Current league year to extract '
-                                                                             'player season projections from.')
     return parser.parse_args()
 
 
