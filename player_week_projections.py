@@ -61,13 +61,12 @@ def main():
     # Remotely control safari web browser
     browser = webdriver.Safari()
     browser = helper.yahoo_account_login(args.yahoo_email, args.yahoo_pw, browser)
-    wait = WebDriverWait(browser, 15)  # Wait for up to 15 seconds
+    wait = WebDriverWait(browser, 30)  # Wait for up to 15 seconds
 
     # Cycle through player data and extract season-long projections
     print('Extracting Yahoo! fantasy football player season projections...')
     pagination = 0  # Initialize at player 0
     while pagination <= 275:  # Last page begins at player 275, extract top 300 player projections by points
-        time.sleep(5)  # Delay by 5 seconds
         browser.get(f'https://football.fantasysports.yahoo.com/f1/{args.yahoo_league_id}/players?&sort=PTS&sdir=1&status=A'
                     f'&pos=O&stat1=S_PW_{next_nfl_week}&count={str(pagination)}')
         # Extract data from first web page table
