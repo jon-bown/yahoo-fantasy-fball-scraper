@@ -35,3 +35,9 @@ jobs:
             --yahoo_pw ${{ secrets.YAHOO_PW }} \
             --yahoo_league_id ${{ secrets.YAHOO_LEAGUE_ID }} \
             --yahoo_league_year ${{ secrets.YAHOO_LEAGUE_YEAR }}
+
+      - name: Upload CSV files
+        uses: actions/upload-artifact@v3
+        with:
+          name: nfl-results
+          path: results/
