@@ -4,6 +4,7 @@ __author__ = 'agoss'
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
+from datetime import datetime
 
 
 def yahoo_account_login(user_email, user_pw, browser):
@@ -23,3 +24,10 @@ def yahoo_account_login(user_email, user_pw, browser):
     submit_btn = browser.find_element(By.ID, 'login-signin')
     submit_btn.click()
     return browser
+
+def get_next_nfl_week(current_week: int) -> int:
+    return current_week + 1
+
+def get_current_nfl_week(start_date: datetime, current_date: datetime) -> int:
+    days_since_start = (current_date - start_date).days
+    return days_since_start // 7 + 1
